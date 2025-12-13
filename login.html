@@ -18,7 +18,6 @@
     font-family: 'Share Tech Mono', monospace;
   }
 
-  /* Shooting Stars */
   .bg-stars {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -51,7 +50,6 @@
   .star:nth-child(3) { top: 60%; right: 20%; animation-delay: 1.8s; animation-duration: 2.2s; }
   .star:nth-child(4) { top: 80%; right: 60%; animation-delay: 1.2s; animation-duration: 1.8s; }
 
-  /* Same size card for both forms */
   .form {
     width: 380px;
     padding: 48px 36px;
@@ -65,7 +63,7 @@
     overflow: hidden;
     transition: transform 0.4s ease;
   }
-  form:hover { transform: translateY(-8px); }
+  .form:hover { transform: translateY(-8px); }
 
   .form-title {
     font-size: 1.35rem;
@@ -75,14 +73,11 @@
     margin-bottom: 6px;
   }
   .form-title span { animation: flickering 2.5s linear infinite; }
-  @keyframes flickering {
-    0%,100% { opacity: 1; }
-    42%,43%,48%,49% { opacity: 0.3; }
-  }
+  @keyframes flickering { 0%,100% { opacity: 1; } 42%,43%,48%,49% { opacity: 0.3; } }
 
   .title-2 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 800 3rem/1 'Orbitron';
+    font-size: 3rem;
     letter-spacing: 10px;
     color: transparent;
     -webkit-text-stroke: 1.8px #9acd32;
@@ -90,9 +85,7 @@
     margin-bottom: 40px;
   }
 
-  .input-group {
-    margin: 22px 0;
-  }
+  .input-group { margin: 22px 0; }
   .input-group input {
     width: 100%;
     padding: 16px 18px;
@@ -104,15 +97,9 @@
     outline: none;
     transition: 0.3s;
   }
-  .input-group input::placeholder {
-    color: #555;
-    transition: opacity 0.4s;
-  }
+  .input-group input::placeholder { color: #555; transition: opacity 0.4s; }
   .input-group input:focus::placeholder { opacity: 0; }
-  .input-group input:focus {
-    background: #fff;
-    box-shadow: 0 0 25px rgba(154,205,50,0.7);
-  }
+  .input-group input:focus { background: #fff; box-shadow: 0 0 25px rgba(154,205,50,0.7); }
 
   .submit {
     width: 100%;
@@ -153,16 +140,8 @@
     gap: 14px;
   }
 
-  .link {
-    margin-top: 28px;
-    color: #ccc;
-    font-size: 0.98rem;
-  }
-  .link a {
-    color: #9acd32;
-    text-decoration: none;
-    font-weight: bold;
-  }
+  .link { margin-top: 28px; color: #ccc; font-size: 0.98rem; }
+  .link a { color: #9acd32; text-decoration: none; font-weight: bold; }
   .link a:hover { text-decoration: underline; }
 
   .hidden { display: none !important; }
@@ -177,117 +156,100 @@
   <span class="star"></span>
 </div>
 
-<!-- LOGIN FORM (DEFAULT) -->
 <form id="loginForm">
   <div class="form-title"><span>sign in to your</span></div>
   <div class="title-2"><span>ZTA</span></div>
 
-  <div class="input-group">
-    <input type="email" id="login-email" placeholder="Email" required>
-  </div>
-  <div class="input-group">
-    <input type="password" id="login-password" placeholder="Password" required>
-  </div>
+  <div class="input-group"><input type="email" id="login-email" placeholder="Email" required></div>
+  <div class="input-group"><input type="password" id="login-password" placeholder="Password" required></div>
 
   <button type="button" class="submit" onclick="loginUser()">Sign In</button>
   <button type="button" class="google-btn" onclick="googleLogin()">
     <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="22"> Continue with Google
   </button>
 
-  <div class="link">
-    No account? <a href="#" onclick="showSignup(event)">Sign up!</a>
-  </div>
+  <div class="link">No account? <a href="#" onclick="showSignup(event)">Sign up!</a></div>
 </form>
 
-<!-- SIGNUP FORM (HIDDEN) -->
 <form id="signupForm" class="hidden">
   <div class="form-title"><span>create your</span></div>
   <div class="title-2"><span>ZTA</span></div>
 
-  <div class="input-group">
-    <input type="text" id="signup-username" placeholder="Username" required>
-  </div>
-  <div class="input-group">
-    <input type="email" id="signup-email" placeholder="Email" required>
-  </div>
-  <div class="input-group">
-    <input type="password" id="signup-password" placeholder="Password (6+ chars)" required>
-  </div>
+  <div class="input-group"><input type="text" id="signup-username" placeholder="Username" required></div>
+  <div class="input-group"><input type="email" id="signup-email" placeholder="Email" required></div>
+  <div class="input-group"><input type="password" id="signup-password" placeholder="Password (6+ chars)" required></div>
 
   <button type="button" class="submit" onclick="signupUser()">Create Account</button>
   <button type="button" class="google-btn" onclick="googleLogin()">
     <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="22"> Sign up with Google
   </button>
 
-  <div class="link">
-    Already have an account? <a href="#" onclick="showLogin(event)">Sign in</a>
-  </div>
+  <div class="link">Already have an account? <a href="#" onclick="showLogin(event)">Sign in</a></div>
 </form>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
-function showSignup(e) {
-  e.preventDefault();
-  document.getElementById("loginForm").classList.add("hidden");
-  document.getElementById("signupForm").classList.remove("hidden");
-}
-function showLogin(e) {
-  e.preventDefault();
-  document.getElementById("signupForm").classList.add("hidden");
-  document.getElementById("loginForm").classList.remove("hidden");
+const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxpKYTFa73ddZazie9IxL2OxDPJPeo9pitz0-YUcWebxNSaj52wwfeF0P9bd3Rbxw/exec";
+
+function showSignup(e){ e.preventDefault(); document.getElementById("loginForm").classList.add("hidden"); document.getElementById("signupForm").classList.remove("hidden"); }
+function showLogin(e){ e.preventDefault(); document.getElementById("signupForm").classList.add("hidden"); document.getElementById("loginForm").classList.remove("hidden"); }
+
+async function logToGoogleSheet(email, uid, action){
+  const formData = new URLSearchParams();
+  formData.append("email", email);
+  formData.append("uid", uid);
+  formData.append("action", action);
+  formData.append("timestamp", new Date().toISOString());
+  try{ await fetch(GOOGLE_SHEET_WEB_APP_URL, { method: "POST", mode: "no-cors", headers:{ "Content-Type":"application/x-www-form-urlencoded" }, body: formData.toString() }); }
+  catch(err){ console.warn("GoogleSheet log failed:", err); }
 }
 
-async function loginUser() {
-  const email = document.getElementById("login-email").value;
+async function loginUser(){
+  const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value;
-  try {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
-    window.location.href = "index.html";
-  } catch (error) { alert("Error: " + error.message); }
+  if(!email || !password) return alert("Please fill in all fields");
+  try{
+    const cred = await firebase.auth().signInWithEmailAndPassword(email,password);
+    await logToGoogleSheet(email, cred.user.uid, "Login");
+    window.location.href="index.html";
+  }catch(e){ alert("Login failed: "+e.message); }
 }
 
-async function signupUser() {
+async function signupUser(){
   const username = document.getElementById("signup-username").value.trim();
-  const email = document.getElementById("signup-email").value;
+  const email = document.getElementById("signup-email").value.trim();
   const password = document.getElementById("signup-password").value;
-  if (password.length < 6) return alert("Password must be 6+ characters");
-
-  try {
-    const cred = await firebase.auth().createUserWithEmailAndPassword(email, password);
-    await firebase.firestore().collection("users").doc(cred.user.uid).set({
-      username, email, createdAt: new Date(), photoURL: ""
-    });
-    window.location.href = "index.html";
-  } catch (error) { alert("Error: " + error.message); }
+  if(!username||!email||!password) return alert("Please fill all fields");
+  if(password.length<6) return alert("Password must be 6+ characters");
+  try{
+    const cred = await firebase.auth().createUserWithEmailAndPassword(email,password);
+    await firebase.firestore().collection("users").doc(cred.user.uid).set({username,email,createdAt:new Date()});
+    await logToGoogleSheet(email,cred.user.uid,"Signup");
+    window.location.href="index.html";
+  }catch(e){ alert("Signup failed: "+e.message); }
 }
 
-async function googleLogin() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const user = result.user;
+async function googleLogin(){
+  const provider=new firebase.auth.GoogleAuthProvider();
+  try{
+    const result=await firebase.auth().signInWithPopup(provider);
+    const user=result.user;
     await firebase.firestore().collection("users").doc(user.uid).set({
-      username: user.displayName || "ZTA User",
-      email: user.email,
-      photoURL: user.photoURL || "",
-      createdAt: new Date()
-    }, { merge: true });
-    window.location.href = "index.html";
-  } catch (error) {
-    if (error.code !== "auth/popup-closed-by-user") alert("Google login failed: " + error.message);
-  }
+      username:user.displayName||"ZTA User",
+      email:user.email,
+      photoURL:user.photoURL||"",
+      createdAt:new Date()
+    },{merge:true});
+    await logToGoogleSheet(user.email,user.uid,"Google Login/Signup");
+    window.location.href="index.html";
+  }catch(e){ if(e.code!=="auth/popup-closed-by-user") alert("Google login failed: "+e.message); }
 }
 
-// Redirect if already logged in
-firebase.auth().onAuthStateChanged(user => {
-  if (user) window.location.href = "index.html";
-});
+firebase.auth().onAuthStateChanged(user=>{ if(user) logToGoogleSheet(user.email,user.uid,"Session Start"); });
 </script>
-
 </body>
 </html>
