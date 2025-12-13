@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTA – Gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body { 
+        margin: 0; 
+        font-family: Arial, sans-serif; 
+        background: #000; 
+        color: #fff; 
+        min-height: 100vh;
+        opacity: 0; /* Hidden until auth check completes */
+        transition: opacity 0.6s ease;
+    }
+    body.loaded { opacity: 1; }
+
+    /* Navbar */
+    .navbar { 
+        width: 100%; 
+        padding: 20px 40px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        background: #000; 
+        border-bottom: 1px solid #111; 
+        position: sticky; 
+        top: 0; 
+        z-index: 100; 
+    }
+    .nav-left { 
+        font-size: 26px; 
+        letter-spacing: 3px; 
+        font-weight: 700; 
+        color: #9acd32; 
+    }
+    .nav-right a { 
+        margin-left: 25px; 
+        color: #ccc; 
+        text-decoration: none; 
+        font-size: 16px; 
+        transition: 0.3s; 
+    }
+    .nav-right a:hover { 
+        color: #9acd32; 
+    }
+
+    /* Hero */
+    .hero { 
+        width: 100%; 
+        height: 70vh; 
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
+                    url("assets/gallery-hero.jpg") center/cover no-repeat; 
+        position: relative; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .hero-text { 
+        font-size: 60px; 
+        font-weight: 800; 
+        letter-spacing: 8px; 
+        text-transform: uppercase; 
+        color: #9acd32; 
+        text-shadow: 0 0 30px rgba(154, 205, 50, 0.5);
+    }
+    .hero-sub { 
+        font-size: 22px; 
+        color: #bbb; 
+        letter-spacing: 3px; 
+        margin-top: 10px;
+    }
+
+    /* Gallery */
+    .gallery-container {
+        max-width: 1400px;
+        margin: 80px auto;
+        padding: 0 40px;
+    }
+    .section-title {
+        font-size: 36px;
+        font-weight: 700;
+        text-align: center;
+        color: #9acd32;
+        margin-bottom: 60px;
+        letter-spacing: 4px;
+    }
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+    }
+    .gallery-item {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        transition: all 0.4s ease;
+        cursor: pointer;
+    }
+    .gallery-item:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(154, 205, 50, 0.25);
+    }
+    .gallery-item img {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+        display: block;
+    }
+    .gallery-caption {
+        padding: 18px;
+        background: #0b0b0b;
+        text-align: center;
+        font-size: 18px;
+        color: #9acd32;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    /* Footer */
+    footer { 
+        text-align: center; 
+        padding: 50px; 
+        color: #555; 
+        font-size: 14px; 
+        border-top: 1px solid #111; 
+        margin-top: 100px; 
+    }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-left">ZTA</div>
+
+    <div class="nav-right" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+        <a href="gears.html">Gears</a>
+
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="profile.html" id="profileLink" style="display:none;">Profile</a>
+        <a href="#" id="logoutLink" style="display:none;" onclick="ZTA.logout()">Logout</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div>
+        <div class="hero-text">GALLERY</div>
+        <div class="hero-sub">Deep Space • Nebulae • Galaxies • Planets</div>
+    </div>
+</div>
+
+<!-- GALLERY GRID -->
+<div class="gallery-container">
+    <h2 class="section-title">Cosmic Collection</h2>
+
+    <div class="gallery-grid">
+        <div class="gallery-item">
+            <img src="assets/astro/gallery1.jpg" alt="Orion Nebula">
+            <div class="gallery-caption">Orion Nebula (M42)</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/astro/gallery2.jpg" alt="Andromeda Galaxy">
+            <div class="gallery-caption">Full Sky with Seven Sisters</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/astro/gallery3.jpg" alt="Andromeda">
+            <div class="gallery-caption">I wanted to capture the Andromeda but i can't</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/astro/gallery4.jpg" alt="Jupiter">
+            <div class="gallery-caption">Jupiter & Moons</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/astro/gallery5.jpg" alt="Horsehead Nebula">
+            <div class="gallery-caption">Horsehead Nebula</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/astro/gallery6.jpg" alt="Sombrero Galaxy">
+            <div class="gallery-caption">Sombrero Galaxy (M104)</div>
+        </div>
+        <div class="gallery-item">
+            <img src="assets/astro/gallery7.jpg" alt="Sombrero Galaxy">
+            <div class="gallery-caption">Sombrero Galaxy (M104)</div>
+    </div>
+</div>
+
+<footer>
+    © 2025 ZTA — Capturing the Universe, One Photon at a Time.
+</footer>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+<script src="zta.js" defer></script>
+
+<script>
+// PROTECTED PAGE: Redirect to login if not authenticated
+firebase.auth().onAuthStateChanged((user) => {
+    const loginLink    = document.getElementById("loginLink");
+    const profileLink  = document.getElementById("profileLink");
+    const logoutLink   = document.getElementById("logoutLink");
+
+    if (user) {
+        // User is logged in → show content
+        document.body.classList.add("loaded");
+
+        if (loginLink)    loginLink.style.display    = "none";
+        if (profileLink)  profileLink.style.display  = "inline";
+        if (logoutLink)   logoutLink.style.display   = "inline";
+    } else {
+        // Not logged in → redirect immediately
+        window.location.replace("login.html");
+    }
+});
+</script>
+
+</body>
+</html>

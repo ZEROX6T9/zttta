@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTA – Redeem Cosmic Rank</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body { 
+        margin:0; 
+        font-family:'Segoe UI',sans-serif; 
+        background:#000; 
+        color:#fff; 
+        line-height:1.6; 
+    }
+
+    /* NAVBAR */
+    .navbar {
+        width:100%; padding:22px 50px; display:flex; justify-content:space-between; align-items:center;
+        background:rgba(0,0,0,0.95); backdrop-filter:blur(10px); border-bottom:1px solid #111;
+        position:fixed; top:0; left:0; z-index:1000; box-shadow:0 4px 20px rgba(0,0,0,0.6);
+    }
+    .nav-left { 
+        font-size:28px; letter-spacing:5px; font-weight:800; font-style:italic; 
+        color:#9acd32; text-shadow:0 0 20px rgba(154,205,50,0.5); 
+    }
+    .nav-right { display:flex; align-items:center; gap:32px; }
+    .nav-right a { 
+        color:#ccc; text-decoration:none; font-size:16px; font-weight:500; 
+        transition:0.3s; position:relative; 
+    }
+    .nav-right a:hover { 
+        color:#9acd32; text-shadow:0 0 10px rgba(154,205,50,0.6); 
+    }
+    .nav-right a::after { 
+        content:''; position:absolute; width:0; height:2px; bottom:-6px; left:50%; 
+        background:#9acd32; transition:0.3s; 
+    }
+    .nav-right a:hover::after { width:100%; left:0; }
+
+    /* HERO */
+    .hero { 
+        width:100%; height:100vh; 
+        background:url("assets/background.jpg") center/cover no-repeat; 
+        position:relative; display:flex; align-items:center; justify-content:center; text-align:center; 
+    }
+    .hero::after { 
+        content:""; position:absolute; inset:0; 
+        background:linear-gradient(to bottom,rgba(0,0,0,0.3),rgba(0,0,0,0.95)); 
+    }
+    .hero-title { 
+        font-size:64px; font-weight:900; letter-spacing:8px; text-transform:uppercase; 
+        color:#9acd32; text-shadow:0 0 40px rgba(154,205,50,0.7); z-index:2; margin-bottom:20px; 
+    }
+    .hero-subtitle { 
+        font-size:22px; color:#aaa; letter-spacing:3px; z-index:2; 
+    }
+
+    /* CONTENT & FORM */
+    .content { padding:140px 20px 100px; max-width:900px; margin:0 auto; text-align:center; }
+    .redeem-form {
+        background:#0a0a0a; border:1px solid #111; border-radius:16px; padding:60px 40px;
+        box-shadow:0 20px 40px rgba(0,0,0,0.6); max-width:600px; margin:0 auto;
+    }
+    .redeem-form h2 { 
+        font-size:36px; color:#9acd32; margin-bottom:40px; letter-spacing:3px; 
+    }
+
+    .input-group { margin-bottom:30px; }
+    .input-group label { 
+        display:block; margin-bottom:10px; font-size:16px; color:#aaa; 
+    }
+    .input-group input {
+        width:100%; padding:18px; font-size:20px; background:#111; border:1px solid #333;
+        border-radius:8px; color:#9acd32; text-transform:uppercase; letter-spacing:4px;
+        text-align:center; font-weight:bold; transition:0.3s;
+    }
+    .input-group input:focus {
+        outline:none; border-color:#9acd32; box-shadow:0 0 20px rgba(154,205,50,0.5);
+    }
+
+    .btn-redeem {
+        background:#9acd32; color:#000; border:none; padding:18px 60px; font-size:22px;
+        font-weight:bold; border-radius:8px; cursor:pointer; transition:0.4s; letter-spacing:2px;
+        box-shadow:0 0 30px rgba(154,205,50,0.6);
+    }
+    .btn-redeem:hover {
+        background:#c6ff8a; transform:scale(1.05); box-shadow:0 0 50px rgba(154,205,50,0.8);
+    }
+
+    .status-message {
+        margin-top:30px; font-size:22px; min-height:60px; font-weight:bold;
+    }
+    .success { color:#9acd32; text-shadow:0 0 15px rgba(154,205,50,0.7); }
+    .error { color:#ff6b6b; }
+
+    footer { 
+        text-align:center; padding:60px 20px 40px; color:#666; font-size:14px; 
+        border-top:1px solid #111; 
+    }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-left">ZTA</div>
+    <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+        <a href="gears.html">Gears</a>
+        <a href="redeem.html" style="color:#9acd32;">Redeem</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="profile.html" id="profileLink" style="display:none;">Profile</a>
+        <a href="#" id="logoutLink" style="display:none;" onclick="logout()">Logout</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div>
+        <h1 class="hero-title">REDEEM COSMIC RANK</h1>
+        <p class="hero-subtitle">Enter your exclusive 15-letter code to ascend</p>
+    </div>
+</div>
+
+<div class="content">
+    <div class="redeem-form">
+        <h2>Unlock Your True Rank</h2>
+        <form id="redeemForm">
+            <div class="input-group">
+                <label for="code">Your 15-Letter Code</label>
+                <input 
+                    type="text" 
+                    id="code" 
+                    placeholder="PLANETHUNTERZTA" 
+                    maxlength="15" 
+                    required 
+                    autocomplete="off"
+                >
+            </div>
+            <button type="submit" class="btn-redeem">CLAIM RANK</button>
+            <div id="statusMessage" class="status-message"></div>
+        </form>
+    </div>
+</div>
+
+<footer>© 2025 ZTA — Master of the Cosmos</footer>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+// Login state management
+firebase.auth().onAuthStateChanged((user) => {
+    const loginLink = document.getElementById("loginLink");
+    const profileLink = document.getElementById("profileLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    if (user) {
+        loginLink.style.display = "none";
+        profileLink.style.display = "inline";
+        logoutLink.style.display = "inline";
+    } else {
+        // Not logged in → redirect
+        window.location.href = "login.html";
+    }
+});
+
+function logout() {
+    if (confirm("Leave the cosmos?")) {
+        firebase.auth().signOut().then(() => {
+            window.location.href = "login.html";
+        });
+    }
+}
+
+// Redeem Code System
+document.getElementById("redeemForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const inputCode = document.getElementById("code").value.trim().toUpperCase();
+    const status = document.getElementById("statusMessage");
+    status.className = "status-message";
+    status.textContent = "Validating code...";
+
+    // Validate format: exactly 15 uppercase letters
+    if (inputCode.length !== 15 || !/^[A-Z]{15}$/.test(inputCode)) {
+        status.textContent = "Code must be exactly 15 letters (A-Z only)";
+        status.classList.add("error");
+        return;
+    }
+
+    try {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            status.textContent = "Please log in first";
+            status.classList.add("error");
+            return;
+        }
+
+        const codeRef = firebase.firestore().collection("redeemCodes").doc(inputCode);
+        const doc = await codeRef.get();
+
+        if (!doc.exists) {
+            status.textContent = "Invalid code — not recognized";
+            status.classList.add("error");
+            return;
+        }
+
+        const data = doc.data();
+
+        if (data.used === true) {
+            status.textContent = "This code has already been claimed!";
+            status.classList.add("error");
+            return;
+        }
+
+        // SUCCESS — Claim the code!
+        await codeRef.update({
+            used: true,
+            usedBy: user.uid,
+            usedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // Save rank to user's profile
+        await firebase.firestore().collection("users").doc(user.uid).set({
+            cosmicRank: data.rank || data.role  // flexible field name
+        }, { merge: true });
+
+        status.innerHTML = `
+            <div style="font-size:32px; margin:20px 0;">ASCENDED!</div>
+            <div style="font-size:48px; color:#9acd32; text-shadow:0 0 40px #9acd32; margin:20px 0;">
+                ${data.rank || data.role}
+            </div>
+            <div style="color:#aaa; font-size:18px;">
+                Your cosmic rank is now eternal.
+            </div>
+        `;
+        status.classList.add("success");
+
+        // Clear input
+        document.getElementById("code").value = "";
+
+    } catch (error) {
+        console.error("Redeem error:", error);
+        status.textContent = "Something went wrong. Try again.";
+        status.classList.add("error");
+    }
+});
+</script>
+
+<script src="zta.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTA – Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #000;
+        color: #fff;
+    }
+
+    /* Navbar */
+    .navbar {
+        width: 100%;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #000;
+        border-bottom: 1px solid #111;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .nav-left {
+        font-size: 26px;
+        letter-spacing: 3px;
+        font-weight: 700;
+    }
+    .nav-right a {
+        margin-left: 25px;
+        color: #ccc;
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+    .nav-right a:hover {
+        color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+        width: 100%;
+        height: 50vh;
+        background: center/cover no-repeat;
+        position: relative;
+    }
+    .hero::after {
+        content: "";
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.95));
+    }
+    .hero-text {
+        position: absolute;
+        bottom: 40px;
+        left: 50px;
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+    }
+
+    /* Blog Grid */
+    .blog-container {
+        max-width: 1300px;
+        margin: 70px auto;
+        padding: 0 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        gap: 35px;
+    }
+
+    .blog-card {
+        background: #0b0b0b;
+        border: 1px solid #111;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+    .blog-card:hover {
+        transform: translateY(-6px);
+        border-color: #444;
+    }
+    .blog-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+    .blog-content {
+        padding: 20px;
+    }
+    .blog-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+    .blog-text {
+        color: #bbb;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .blog-read {
+        display: inline-block;
+        margin-top: 15px;
+        color: #9acd32;
+        text-decoration: none;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .blog-read:hover {
+        color: #c6ff7a;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: #777;
+        font-size: 14px;
+        margin-top: 100px;
+        border-top: 1px solid #111;
+    }
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-left">ZTA</div>
+
+    <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html" style="color:#fff;">Blog</a>
+        <a href="gears.html">Gears</a>
+        <a href="login.html">Login</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-text">ZTA Blog</div>
+</div>
+
+<!-- BLOG GRID -->
+<div class="blog-container">
+
+    <!-- Blog 1 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog1.jpg" alt="Orion Nebula">
+        <div class="blog-content">
+            <div class="blog-title">Orion Nebula</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    I took my first nebula photo. It's so bad but it is a golden picture for me...
+                </span>
+                <span class="text-full" style="display:none;">
+                    The Orion Nebula is a star nursery located in the constellation Orion, known for its bright and active star formation. It is one of the most intense areas of stellar formation within the Milky Way. Visible to the naked eye, it contains the young Trapezium cluster whose massive stars illuminate the nebula.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+    <!-- Blog 2 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog2.jpg" alt="Pleiades">
+        <div class="blog-content">
+            <div class="blog-title">Pleiades – Seven Sisters</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    The Seven Sisters, known as the Pleiades, is a prominent star cluster in the constellation Taurus...
+                </span>
+                <span class="text-full" style="display:none;">
+                    The Pleiades is an open star cluster with over 1,000 stars, located about 410 light-years away. Easily visible to the naked eye, it has inspired myths across cultures and is a favorite target for astrophotographers.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+    <!-- Blog 3 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog3.jpg" alt="Andromeda Galaxy">
+        <div class="blog-content">
+            <div class="blog-title">Andromeda Galaxy</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    Capturing our closest galactic neighbor – the magnificent Andromeda Galaxy...
+                </span>
+                <span class="text-full" style="display:none;">
+                    Andromeda (M31) is the nearest spiral galaxy to the Milky Way, 2.5 million light-years away. It contains over a trillion stars and is on a future collision course with our galaxy.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+    <!-- Blog 4 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog4.jpg" alt="Milky Way Core">
+        <div class="blog-content">
+            <div class="blog-title">Milky Way Core</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    Summer nights chasing the dense and beautiful core of our own galaxy...
+                </span>
+                <span class="text-full" style="display:none;">
+                    The galactic center is packed with millions of stars, dust lanes, and nebulae. It’s one of the most spectacular views available under dark skies.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+    <!-- Blog 5 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog5.jpg" alt="Horsehead Nebula">
+        <div class="blog-content">
+            <div class="blog-title">Horsehead Nebula</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    The iconic dark silhouette of the Horsehead Nebula against a glowing background...
+                </span>
+                <span class="text-full" style="display:none;">
+                    A famous dark nebula in Orion, the Horsehead is sculpted by radiation from nearby stars and requires long exposures to capture its subtle details.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+    <!-- Blog 6 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog6.jpg" alt="Jupiter">
+        <div class="blog-content">
+            <div class="blog-title">Jupiter and Moons</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    Planetary session: Jupiter with its swirling bands and four Galilean moons...
+                </span>
+                <span class="text-full" style="display:none;">
+                    Jupiter shows incredible detail – cloud belts, the Great Red Spot, and its largest moons Io, Europa, Ganymede, and Callisto.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+    <!-- Blog 7 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog7.jpg" alt="Moon Craters">
+        <div class="blog-content">
+            <div class="blog-title">Lunar Craters</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    High-resolution view of the Moon’s rugged surface and dramatic craters...
+                </span>
+                <span class="text-full" style="display:none;">
+                    The Moon offers stunning detail along the terminator, where shadows highlight craters, mountains, and ancient lava plains.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+    <!-- Blog 8 -->
+    <div class="blog-card">
+        <img src="assets/blog/blog8.jpg" alt="Ring Nebula">
+        <div class="blog-content">
+            <div class="blog-title">Ring Nebula (M57)</div>
+            <div class="blog-text">
+                <span class="text-short">
+                    The beautiful planetary nebula that resembles a cosmic smoke ring...
+                </span>
+                <span class="text-full" style="display:none;">
+                    Formed by a dying star casting off its outer layers, the Ring Nebula in Lyra is one of the most photographed examples of a planetary nebula.
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="blog-read read-more-btn">READ MORE →</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © 2025 ZTA — All rights reserved.
+</footer>
+
+<!-- Read More / Read Less Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.read-more-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const content = this.previousElementSibling.querySelector('.text-full');
+            const short = this.previousElementSibling.querySelector('.text-short');
+
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "inline";
+                short.style.display = "none";
+                this.textContent = "READ LESS ↑";
+            } else {
+                content.style.display = "none";
+                short.style.display = "inline";
+                this.textContent = "READ MORE →";
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

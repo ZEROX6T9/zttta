@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About – ZTA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #000;
+        color: #fff;
+    }
+
+    /* Navbar */
+    .navbar {
+        width: 100%;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #000;
+        border-bottom: 1px solid #111;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .nav-left {
+        font-size: 26px;
+        letter-spacing: 3px;
+        font-weight: 700;
+    }
+    .nav-right a {
+        margin-left: 25px;
+        color: #ccc;
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+    .nav-right a:hover {
+        color: #fff;
+    }
+
+    /* Hero Section */
+    .hero {
+        width: 100%;
+        height: 55vh;
+        background: url("assets/about-hero.jpg") center/cover no-repeat;
+        position: relative;
+    }
+    .hero::after {
+        content: "";
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.9));
+    }
+    .hero-text {
+        position: absolute;
+        bottom: 40px;
+        left: 50px;
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+    }
+
+    /* About Section (BEST layout) */
+    .about-wrapper {
+        display: flex;
+        width: 100%;
+        max-width: 1250px;
+        margin: 80px auto;
+        gap: 50px;
+        padding: 0 40px;
+    }
+    .about-img {
+        width: 45%;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .about-img img {
+        width: 100%;
+        border-radius: 12px;
+    }
+    .about-text {
+        width: 55%;
+        font-size: 18px;
+        line-height: 1.8;
+        color: #ddd;
+    }
+    .about-title {
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: #777;
+        font-size: 14px;
+        margin-top: 100px;
+        border-top: 1px solid #111;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-left">ZTA</div>
+    <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+        <a href="gears.html">Gears</a>
+        <a href="login.html">Login</a>
+        <!-- <a href="shop.html">Shop</a> -->
+        
+        <!-- <a href="cart.html">Cart</a> -->
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-text">About ZTA</div>
+</div>
+
+<!-- ABOUT CONTENT -->
+<div class="about-wrapper">
+
+    <div class="about-img">
+        <img src="assets/about-profile.jpg" alt="About Image">
+    </div>
+
+    <div class="about-text">
+        <div class="about-title">A Journey Beyond Space</div>
+       Hello! I'm Rubyat, a 15-year-old adventurer in the world of creativity, technology, and ideas. Ever since I was young, I've been curious about how things work, why they exist, and how I can make them even better. This curiosity drives me to explore, experiment, and create every day.
+
+I love acquiring new skills, specifically in technology and digital creation. Coding, designing, trying out projects-these are my favorite ways to express myself and challenge my imagination. There's something magical in seeing an idea of mine come into being, from just a thought in my mind, into something that I can see, touch, or share with others.
+
+        <br><br>
+
+        Other than tech, the outside world interests me: I enjoy computer gaming, reading books, and finding new ways to be creative. This involves communication with other people, sharing my ideas, and learning from those who inspire me. Every big or small experience nurtures my character and pushes me toward more.
+
+A place which is mine, where I can share my journey, projects, and passions with the world. You'll find here my latest experiments, thoughts, and creations. Hope it will inspire you, teach you something new, or just brighten up your day.
+
+        <br><br>
+
+        I believe that age is just a number, while curiosity, creativity, and determination are the ones that define you. Even at 15, learning never stops, and each challenge is a chance to grow. I am always exploring, always imagining, and always ready to make my dreams real.
+
+Thanks for checking out my webpage, take your time, enjoy what you find and reach out whenever you feel the need. Let's grow together, make magic, and keep the journey fun and amazing!
+
+        <br><br>
+        **Look up. Explore. Discover.**
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © 2025 ZTA — All rights reserved.
+</footer>
+<script src="zta.js" defer></script>
+</body>
+</html>
+<a href="login.html" id="openLogin">Login</a>
