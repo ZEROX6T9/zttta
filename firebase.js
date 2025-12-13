@@ -123,3 +123,17 @@ window.ZTA = {
     storage,
     rtdb
 };
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // User is signed in
+        logUserToSheet(user.email, user.uid, "Login"); // For login
+
+        // If this is a NEW signup, you can detect it:
+        if (user.metadata.creationTime === user.metadata.lastSignInTime) {
+            logUserToSheet(user.email, user.uid, "Signup");
+        }
+
+        // Redirect to profile or home
+        window.location.href = "profile.html";
+    }
+});
