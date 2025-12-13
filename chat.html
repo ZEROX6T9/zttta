@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat</title>
+    <script src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #121212;
+            color: #e0e0e0;
+        }
+        #chat {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        #messages {
+            height: 70vh;
+            overflow-y: auto;
+            padding: 20px;
+            background: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .mine {
+            background: #0d47a1;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .other {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+        .message img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 8px;
+            display: block;
+        }
+        #members {
+            padding: 10px 20px;
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            padding: 20px;
+            background: #1e1e1e;
+            border-top: 1px solid #333;
+            align-items: center;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            background: #2d2d2d;
+            color: #e0e0e0;
+            border: 1px solid #444;
+            border-radius: 4px;
+        }
+        input[type="text"]::placeholder {
+            color: #888;
+        }
+        button, label[for="image"] {
+            padding: 10px 20px;
+            background: #0d47a1;
+            color: white;
+            border: none;
+            margin-left: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        label[for="image"] {
+            margin: 0;
+            display: inline-block;
+        }
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat">
+        <div id="members">Members: <span id="member-count">0</span></div>
+        <div id="messages"></div>
+        <form id="form">
+            <input type="text" id="input" autocomplete="off" placeholder="Type a message..." />
+            <label for="image">📷</label>
+            <input type="file" id="image" accept="image/*" />
+            <button>Send</button>
+        </form>
+    </div>
+    <script>
+        // Replace with your own channel ID from https://www.scaledrone.com
+        const CHANNEL_ID = 'dBRdpXPAxQWrLGbh';
+        const drone = new ScaleDrone(CHANNEL_ID, {
+            data: { name: randomName(), color: randomColor() }
+        });
+        const messages = document.getElementById('messages');
+        const input = document.getElementById('input');
+        const imageInput = document.getElementById('image');
+        const form = document.getElementById('form');
+        const memberCount = document.getElementById('member-count');
+        let members = [];
+
+        drone.on('open', error => {
+            if (error) return console.error(error);
+            console.log('Connected to Scaledrone');
+        });
+
+        const room = drone.subscribe('observable-room');
+
+        room.on('open', error => {
+            if (error) return console.error(error);
+        });
+
+        room.on('members', m => {
+            members = m;
+            updateMembers();
+        });
+
+        room.on('member_join', member => {
+            members.push(member);
+            updateMembers();
+            addMessage(`${member.clientData.name} joined`, 'system');
+        });
+
+        room.on('member_leave', ({id}) => {
+            members = members.filter(m => m.id !== id);
+            updateMembers();
+            addMessage('Someone left', 'system');
+        });
+
+        room.on('message', message => {
+            const { data, member, id } = message;
+            if (member && member.id === drone.clientId) return;
+
+            if (typeof data === 'string') {
+                addMessage(data, 'other', member.clientData);
+            } else if (data.type === 'image') {
+                addImageMessage(data.url, 'other', member.clientData);
+            }
+        });
+
+        form.onsubmit = e => {
+            e.preventDefault();
+            const text = input.value.trim();
+            if (text === '' && !imageInput.files.length) return;
+
+            if (text) {
+                drone.publish({
+                    room: 'observable-room',
+                    message: text
+                });
+                addMessage(text, 'mine', drone.clientData);
+                input.value = '';
+            }
+        };
+
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64 = reader.result;
+
+                const payload = {
+                    type: 'image',
+                    url: base64
+                };
+
+                drone.publish({
+                    room: 'observable-room',
+                    message: payload
+                });
+
+                addImageMessage(base64, 'mine', drone.clientData);
+            };
+            reader.readAsDataURL(file);
+
+            imageInput.value = ''; // Clear the input
+            if (input.value.trim()) {
+                // If there's also text, send it separately
+                drone.publish({
+                    room: 'observable-room',
+                    message: input.value.trim()
+                });
+                addMessage(input.value.trim(), 'mine', drone.clientData);
+                input.value = '';
+            }
+        });
+
+        function addMessage(text, type, data = {}) {
+            const msg = document.createElement('div');
+            msg.className = `message ${type}`;
+            if (type === 'system') {
+                msg.textContent = text;
+                msg.style.fontStyle = 'italic';
+                msg.style.textAlign = 'center';
+                msg.style.background = '#2d2d2d';
+                msg.style.color = '#888888';
+            } else {
+                const name = type === 'mine' ? 'You' : data.name;
+                msg.innerHTML = `<strong style="color:${data.color}">${name}:</strong> ${text}`;
+            }
+            messages.appendChild(msg);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function addImageMessage(src, type, data = {}) {
+            const msg = document.createElement('div');
+            msg.className = `message ${type}`;
+
+            const name = type === 'mine' ? 'You' : data.name;
+            msg.innerHTML = `<strong style="color:${data.color}">${name}:</strong>`;
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Sent image';
+            msg.appendChild(img);
+
+            messages.appendChild(msg);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function updateMembers() {
+            memberCount.textContent = members.length;
+        }
+
+        function randomName() {
+            const adjectives = ['awesome', 'cool', 'happy', 'brave', 'clever'];
+            const nouns = ['cat', 'dog', 'bird', 'fox', 'bear'];
+            return adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
+        }
+
+        function randomColor() {
+            const hue = Math.floor(Math.random() * 360);
+            return `hsl(${hue}, 70%, 60%)`;
+        }
+    </script>
+</body>
+</html>
